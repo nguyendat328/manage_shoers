@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/manage_shoers
-    username: root
-    password:
+    url: jdbc:sqlserver://localhost;databaseName=manage_shoers
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: sa
+    password: 12345$
   jpa:
     hibernate:
       ddl-auto: update
