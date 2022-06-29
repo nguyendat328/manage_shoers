@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class ShoersType {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name")
@@ -21,6 +22,4 @@ public class ShoersType {
 
     @Column(name = "status")
     private String status;
-
-
 }

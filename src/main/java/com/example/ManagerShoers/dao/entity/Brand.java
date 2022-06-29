@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Brand {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name")

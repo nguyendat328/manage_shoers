@@ -1,6 +1,8 @@
 package com.example.ManagerShoers.dao.entity;
 
+import com.example.ManagerShoers.common.Constans;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +16,7 @@ import javax.persistence.*;
 public class Account {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "username")
@@ -36,4 +39,7 @@ public class Account {
 
     @Column(name = "token")
     private String token;
+
+    public Account(String username, String password, String phone, String mail, String role) {
+    }
 }
