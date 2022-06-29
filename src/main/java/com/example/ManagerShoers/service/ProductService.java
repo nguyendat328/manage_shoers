@@ -1,7 +1,9 @@
 package com.example.ManagerShoers.service;
 
+import com.example.ManagerShoers.common.ServiceResponse;
 import com.example.ManagerShoers.dao.entity.Product;
 import com.example.ManagerShoers.dao.model.ProductCreateModel;
+import org.hibernate.service.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +13,11 @@ public interface ProductService {
 
     Product findById(Integer id);
 
-    Product saveProduct(ProductCreateModel product);
+    ServiceResponse<Product> saveProduct(ProductCreateModel product);
 
-    Product updateProduct(Product product);
+    ServiceResponse<Product> updateProduct(Integer id, ProductCreateModel product);
 
-    void remove(Integer id);
+    Product removeProduct(Integer id);
 
     boolean checkTypeId(Integer id);
 

@@ -1,6 +1,7 @@
 package com.example.ManagerShoers.service.impl;
 
 import com.example.ManagerShoers.common.Constants;
+import com.example.ManagerShoers.common.ServiceResponse;
 import com.example.ManagerShoers.dao.entity.Brand;
 import com.example.ManagerShoers.dao.entity.Product;
 import com.example.ManagerShoers.dao.entity.ShoersType;
@@ -28,8 +29,20 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Product updateProduct(Product product) {
-        return null;
+    public ServiceResponse<Product> updateProduct(Integer id, ProductCreateModel product) {
+        Product pro = productRepository.findById(id).get();
+        if (pro != null){
+            pro.setName(product.getName());
+            pro.setBrandId(product.getBrandId());
+            pro.setTypeId(product.getTypeId());
+            pro.setSize(product.getSize());
+            pro.setColor(product.getColor());
+            pro.setImgUrl(product.getImgUrl());
+            pro.setStatus(Constants.STATUS_PENDING);
+            Product newProuct = productRepository.save(pro);
+            return new ServiceResponse<>(Constants.SUCCESS, Constants.SUCCESS_MESSAGE, newProuct);
+        }
+        return new ServiceResponse<>(Constants.ERROR, Constants.ERROR_MESSAGE, null);
     }
 
     @Override
@@ -44,7 +57,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product saveProduct(ProductCreateModel product) {
+    public ServiceResponse<Product> saveProduct(ProductCreateModel product) {
+
+
         Product pro = new Product();
         pro.setName(product.getName());
         pro.setBrandId(product.getBrandId());
@@ -52,22 +67,30 @@ public class ProductServiceImpl implements ProductService {
         pro.setSize(product.getSize());
         pro.setColor(product.getColor());
         pro.setImgUrl(product.getImgUrl());
-        pro.setStatus("pending");
-        return productRepository.save(pro);
+        pro.setStatus(Constants.STATUS_PENDING);
+        Product newProduct = productRepository.save(pro);
+
+        return new ServiceResponse<Product>(Constants.SUCCESS, Constants.SUCCESS_MESSAGE, newProduct);
     }
 
     @Override
-    public void remove(Integer id) {
-        productRepository.deleteById(id);
+    public Product removeProduct(Integer id) {
+        Product product = productRepository.findById(id).get();
+        if (product != null){
+            product.setStatus(Constants.STATUS_INACTIVE);
+            return productRepository.save(product);
+        }
+        return null;
     }
 
     @Override
     public boolean checkTypeId(Integer id) {
-        ShoersType obj = shoersTypeRepository.findById(id).get();
-        if (obj == null){
-            return false;
-        }else{
+        Optional<ShoersType> shoersType = shoersTypeRepository.findById(id);
+
+        if (shoersType.isPresent()){
             return true;
+        }else{
+            return false;
         }
 
 
@@ -76,11 +99,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean checkBrandId(Integer id) {
-        Brand obj = brandRepository.findById(id).get();
-        if (obj == null){
-            return false;
-        }else{
+        Optional<Brand> brand = brandRepository.findById(id);
+
+        if (brand.isPresent()){
             return true;
+        }else{
+            return false;
         }
     }
 }
