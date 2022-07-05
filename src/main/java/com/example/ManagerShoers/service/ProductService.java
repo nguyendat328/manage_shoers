@@ -4,6 +4,7 @@ import com.example.ManagerShoers.common.ServiceResponse;
 import com.example.ManagerShoers.dao.entity.Product;
 import com.example.ManagerShoers.dao.model.ProductCreateModel;
 import org.hibernate.service.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,4 +23,7 @@ public interface ProductService {
     boolean checkTypeId(Integer id);
 
     boolean checkBrandId(Integer id);
+
+    void createMail();
+
 }

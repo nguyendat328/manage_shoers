@@ -10,5 +10,20 @@ spring:
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 215MB
+file:
+  upload-dir: ./uploads
 server:
   port: 8443
+mailServer:
+  host: smtp.gmail.com
+  port: 587
+  email: khoips0296@gmail.com
+  password: epyswqyxddzntufv
+  protocol: smtp
+  isSSL: false
+
+
